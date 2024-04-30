@@ -21,11 +21,16 @@ namespace Practice.Controllers
             return View(dsitricts);
         }
 
+        [HttpGet]
         public IActionResult Details(int id)
         {
-            DistrictModel model = _context.DistrictModel.Find(id);
+            //var provinces = _context.ProvinceModel.ToList();
+        //    ViewData["ProvincessId"] = new SelectList(provinces, "Id", "Name");
+            DistrictModel model = _context.DistrictModel.Include(x=>x.Province).FirstOrDefault(x=>x.Id == id);
             return View(model);
         }
+
+        
 
         [HttpGet]
         public IActionResult Create()
@@ -34,6 +39,7 @@ namespace Practice.Controllers
             ViewData["ProvinceId"] = new SelectList(provinces, "Id", "Name");
             return View();
         }
+
 
         [HttpPost]
 
@@ -75,6 +81,8 @@ namespace Practice.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
+            var provinces = _context.ProvinceModel.ToList();
+            ViewData["ProvinceId"] = new SelectList(provinces, "Id", "Name");
             return View(modeldata);
 
             //[HttpGet]

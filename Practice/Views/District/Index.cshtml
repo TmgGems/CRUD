@@ -23,9 +23,9 @@
             <td>@districts.Province.Name</td>
             @* <td>@districts.Province.Country.Name</td> *@
             <td>
-                <a asp-action="Edit" asp-route-id="@districts.Id">Edit</a>
-                <a asp-action="">View</a>
-                <a asp-action="" asp-route-id="@districts.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@districts.Id" class="btn btn-warning">Edit</a>
+                <a asp-action="Details" asp-route-id="@districts.Id" class="btn btn-info">View</a>
+                <a asp-action="" asp-route-id="@districts.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         }
