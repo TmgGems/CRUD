@@ -6,7 +6,7 @@ using Practice.Models;
 
 namespace Practice
 {
-    public class ProvinceService
+    public class ProvinceService : IProvinceService
     {
         private readonly ApplicationDbContext _context;
         public ProvinceService( ApplicationDbContext context)
