@@ -100,5 +100,10 @@ namespace Practice
                 .Include(x => x.Country)
                 .FirstOrDefault(x=>x.Id==id);
         }
+
+        public List<CountryModel> GetCountries()
+        {
+            return _context.CountryModel.ToList();
+        }
     }
 }

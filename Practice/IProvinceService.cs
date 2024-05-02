@@ -13,5 +13,7 @@ namespace Practice
         public List<ProvinceModel> GetProvinces();
 
         public ProvinceModel GetProvinces(int id);
+
+        List<CountryModel> GetCountries();
     }
 }
