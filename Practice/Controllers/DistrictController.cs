@@ -25,12 +25,12 @@ namespace Practice.Controllers
         public IActionResult Details(int id)
         {
             //var provinces = _context.ProvinceModel.ToList();
-        //    ViewData["ProvincessId"] = new SelectList(provinces, "Id", "Name");
-            DistrictModel model = _context.DistrictModel.Include(x=>x.Province).FirstOrDefault(x=>x.Id == id);
+            //    ViewData["ProvincessId"] = new SelectList(provinces, "Id", "Name");
+            DistrictModel model = _context.DistrictModel.Include(x => x.Province).FirstOrDefault(x => x.Id == id);
             return View(model);
         }
 
-        
+
 
         [HttpGet]
         public IActionResult Create()
@@ -85,18 +85,33 @@ namespace Practice.Controllers
             ViewData["ProvinceId"] = new SelectList(provinces, "Id", "Name");
             return View(modeldata);
 
-            //[HttpGet]
-            //public IActionResult Delete(int id)
-            //{
-            //    return View();
-            //}
+        }
 
-            //[HttpPost]
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            DistrictModel model = _context.DistrictModel.Include(x => x.Province).FirstOrDefault(x => x.Id == id);
 
-            //public IActionResult Delete(DistrictModel modeldata)
-            //{
-            //    return View();
-            //}
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+
+        public IActionResult Delete(DistrictModel modeldata)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _context.Remove(modeldata);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            return View(modeldata);
         }
     }
 }
