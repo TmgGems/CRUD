@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Practice.Models;
 
 namespace Practice.Controllers
 {
+    
     public class CountryModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +24,7 @@ namespace Practice.Controllers
         // GET: CountryModels
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.CountryModel.ToListAsync());
         }
 

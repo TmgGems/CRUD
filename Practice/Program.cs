@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Practice;
 using Practice.Data;
+using Practice.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 //registering dependency
 builder.Services.AddTransient<IProvinceService,ProvinceService>();
+builder.Services.AddTransient<ISimpleInterest, SimpleInterest>();
+builder.Services.AddTransient<IUserService, UserService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
