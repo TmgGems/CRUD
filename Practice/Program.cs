@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Practice;
 using Practice.Data;
@@ -13,6 +15,21 @@ builder.Services.AddTransient<IProvinceService,ProvinceService>();
 builder.Services.AddTransient<ISimpleInterest, SimpleInterest>();
 builder.Services.AddTransient<IUserService, UserService>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(config =>
+    {
+        config.ExpireTimeSpan = TimeSpan.FromSeconds(5);
+        config.LoginPath = "/LogIn";
+        //config.AccessDeniedPath = "/home/AccessDenied";
+    });
+
+builder.Services.AddAuthorization(options =>
+{ 
+options.FallbackPolicy = new AuthorizationPolicyBuilder()
+.RequireAuthenticatedUser()
+.Build();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,7 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
